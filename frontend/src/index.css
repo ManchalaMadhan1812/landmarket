@@ -1,0 +1,369 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Custom CSS Variables */
+:root {
+  --color-primary: 37 99 235;
+  --color-primary-foreground: 255 255 255;
+  --color-secondary: 100 116 139;
+  --color-secondary-foreground: 15 23 42;
+  --color-background: 255 255 255;
+  --color-foreground: 15 23 42;
+  --color-muted: 248 250 252;
+  --color-muted-foreground: 100 116 139;
+  --color-border: 226 232 240;
+  --color-input: 226 232 240;
+  --color-ring: 37 99 235;
+  --color-success: 34 197 94;
+  --color-warning: 245 158 11;
+  --color-error: 239 68 68;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --color-background: 2 6 23;
+  --color-foreground: 248 250 252;
+  --color-muted: 15 23 42;
+  --color-muted-foreground: 148 163 184;
+  --color-border: 30 41 59;
+  --color-input: 30 41 59;
+}
+
+/* Base Styles */
+* {
+  border-color: hsl(var(--color-border));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: hsl(var(--color-background));
+  color: hsl(var(--color-foreground));
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+/* Custom Components */
+@layer components {
+  /* Button variants */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800;
+  }
+
+  .btn-secondary {
+    @apply btn bg-secondary-100 text-secondary-900 hover:bg-secondary-200 active:bg-secondary-300;
+  }
+
+  .btn-outline {
+    @apply btn border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 active:bg-gray-100;
+  }
+
+  .btn-ghost {
+    @apply btn text-gray-600 hover:bg-gray-100 hover:text-gray-900 active:bg-gray-200;
+  }
+
+  .btn-sm {
+    @apply h-8 px-3 text-xs;
+  }
+
+  .btn-md {
+    @apply h-10 px-4 py-2;
+  }
+
+  .btn-lg {
+    @apply h-12 px-6 text-base;
+  }
+
+  /* Card component */
+  .card {
+    @apply rounded-lg border bg-white shadow-soft;
+  }
+
+  .card-header {
+    @apply flex flex-col space-y-1.5 p-6;
+  }
+
+  .card-title {
+    @apply text-lg font-semibold leading-none tracking-tight;
+  }
+
+  .card-description {
+    @apply text-sm text-gray-600;
+  }
+
+  .card-content {
+    @apply p-6 pt-0;
+  }
+
+  .card-footer {
+    @apply flex items-center p-6 pt-0;
+  }
+
+  /* Form inputs */
+  .input {
+    @apply flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .textarea {
+    @apply flex min-h-[80px] w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  /* Bento Grid Layout */
+  .bento-grid {
+    @apply grid gap-4;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .bento-item {
+    @apply card p-6 hover:shadow-medium transition-shadow duration-200;
+  }
+
+  .bento-item-sm {
+    grid-row: span 1;
+  }
+
+  .bento-item-md {
+    grid-row: span 2;
+  }
+
+  .bento-item-lg {
+    grid-row: span 3;
+    grid-column: span 2;
+  }
+
+  /* Property card styles */
+  .property-card {
+    @apply card overflow-hidden hover:shadow-medium transition-all duration-300;
+  }
+
+  .property-card:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Badge component */
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply badge bg-primary-100 text-primary-800;
+  }
+
+  .badge-secondary {
+    @apply badge bg-gray-100 text-gray-800;
+  }
+
+  .badge-success {
+    @apply badge bg-success-100 text-success-800;
+  }
+
+  .badge-warning {
+    @apply badge bg-warning-100 text-warning-800;
+  }
+
+  .badge-error {
+    @apply badge bg-error-100 text-error-800;
+  }
+
+  /* Navigation styles */
+  .nav-link {
+    @apply flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors;
+  }
+
+  .nav-link-active {
+    @apply nav-link bg-primary-100 text-primary-700;
+  }
+
+  .nav-link-inactive {
+    @apply nav-link text-gray-600 hover:text-gray-900 hover:bg-gray-50;
+  }
+
+  /* Mobile bottom navigation */
+  .bottom-nav {
+    @apply fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 px-4 py-2;
+  }
+
+  .bottom-nav-item {
+    @apply flex flex-col items-center justify-center min-w-0 flex-1 py-2 text-xs;
+  }
+
+  .bottom-nav-item-active {
+    @apply bottom-nav-item text-primary-600;
+  }
+
+  .bottom-nav-item-inactive {
+    @apply bottom-nav-item text-gray-500;
+  }
+
+  /* Loading states */
+  .skeleton {
+    @apply animate-pulse bg-gray-200 rounded;
+  }
+
+  /* Map styles */
+  .map-container {
+    @apply relative w-full h-full rounded-lg overflow-hidden;
+  }
+
+  .map-marker {
+    @apply w-6 h-6 bg-primary-600 rounded-full border-2 border-white shadow-lg cursor-pointer hover:scale-110 transition-transform;
+  }
+
+  .map-popup {
+    @apply bg-white rounded-lg shadow-lg p-3 max-w-xs;
+  }
+
+  /* Chat styles */
+  .chat-container {
+    @apply flex flex-col h-full bg-white;
+  }
+
+  .chat-messages {
+    @apply flex-1 overflow-y-auto p-4 space-y-4;
+  }
+
+  .chat-message {
+    @apply flex items-start space-x-3;
+  }
+
+  .chat-message-own {
+    @apply chat-message flex-row-reverse space-x-reverse;
+  }
+
+  .chat-bubble {
+    @apply max-w-xs lg:max-w-md px-4 py-2 rounded-2xl;
+  }
+
+  .chat-bubble-other {
+    @apply chat-bubble bg-gray-100 text-gray-900;
+  }
+
+  .chat-bubble-own {
+    @apply chat-bubble bg-primary-600 text-white;
+  }
+
+  /* Notification styles */
+  .notification-dot {
+    @apply absolute -top-1 -right-1 w-3 h-3 bg-error-500 rounded-full animate-pulse;
+  }
+
+  /* Image gallery styles */
+  .image-gallery {
+    @apply grid gap-2;
+  }
+
+  .image-gallery-main {
+    @apply aspect-video rounded-lg overflow-hidden bg-gray-100;
+  }
+
+  .image-gallery-thumbs {
+    @apply grid grid-cols-4 gap-2;
+  }
+
+  .image-gallery-thumb {
+    @apply aspect-square rounded overflow-hidden bg-gray-100 cursor-pointer hover:opacity-80 transition-opacity;
+  }
+}
+
+/* Utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Custom focus styles */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  }
+
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+}
+
+/* Responsive breakpoint indicators (development only) */
+@media (min-width: 640px) {
+  .debug-screens::before {
+    content: 'sm';
+  }
+}
+
+@media (min-width: 768px) {
+  .debug-screens::before {
+    content: 'md';
+  }
+}
+
+@media (min-width: 1024px) {
+  .debug-screens::before {
+    content: 'lg';
+  }
+}
+
+@media (min-width: 1280px) {
+  .debug-screens::before {
+    content: 'xl';
+  }
+}
+
+@media (min-width: 1536px) {
+  .debug-screens::before {
+    content: '2xl';
+  }
+}
+
+.debug-screens::before {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 9999;
+  display: block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: white;
+  background-color: black;
+  border-radius: 0.25rem;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .dark-auto {
+    @apply dark;
+  }
+}
